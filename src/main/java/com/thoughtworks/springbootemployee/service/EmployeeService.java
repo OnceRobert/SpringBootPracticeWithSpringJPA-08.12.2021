@@ -14,6 +14,10 @@ public class EmployeeService{
     @Resource
     private EmployeesRepo employeesRepo;
 
+    private EmployeeService(){
+
+    }
+
     public EmployeeService(EmployeesRepo employeesRepo) {
         this.employeesRepo = employeesRepo;
     }

@@ -3,6 +3,7 @@ package com.thoughtworks.springbootemployee.controller;
 import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.service.CompanyService;
+import com.thoughtworks.springbootemployee.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/companies")
 public class CompanyController {
+
+    public CompanyController(CompanyService companyService){this.companyService = companyService;}
 
     private static List<Company> companyList = new ArrayList<>();
     private static List<Employee> employeeList = new ArrayList<>();

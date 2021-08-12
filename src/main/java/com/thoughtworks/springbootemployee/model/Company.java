@@ -9,9 +9,17 @@ public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
     private String companyName;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyId")
     private List<Employee> employeeList;
+
+    public Company(){
+    }
 
     public Company(Integer id, String companyName, List<Employee> employeeList) {
         this.id = id;
