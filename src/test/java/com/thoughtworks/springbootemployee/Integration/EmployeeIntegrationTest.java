@@ -120,5 +120,29 @@ public class EmployeeIntegrationTest {
                 .andExpect(jsonPath("$[2].salary").doesNotExist());
     }
     
+    @Test
+    void should_create_employee_when_call_create_employee_api() throws Exception
+    {
+        //given
+        String employee = "{\n" +
+                "        \"id\": 1,\n" +
+                "        \"name\": \"Park Jinyoung\",\n" +
+                "        \"age\": 49,\n" +
+                "        \"gender\": \"male\",\n" +
+                "        \"salary\": 2011233,\n" +
+                "        \"companyId\": 1\n" +
+                "    }";
+        //when
+        //then
+        mockMvc.perform(MockMvcRequestBuilders.post("/employees")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(employee))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.name").value("Park Jinyoung"))
+                .andExpect(jsonPath("$.age").value(49))
+                .andExpect(jsonPath("$.gender").value("male"));
+
+    }
+    
     
 }
