@@ -1,5 +1,6 @@
 package com.thoughtworks.springbootemployee.Integration;
 
+import ch.qos.logback.core.encoder.EchoEncoder;
 import com.thoughtworks.springbootemployee.Repository.EmployeesRepo;
 import com.thoughtworks.springbootemployee.model.Employee;
 import org.junit.jupiter.api.AfterEach;
@@ -95,6 +96,27 @@ public class EmployeeIntegrationTest {
                 .andExpect(jsonPath("$[1].age").value(24))
                 .andExpect(jsonPath("$[1].gender").value("female"))
                 .andExpect(jsonPath("$[1].salary").value(9999))
+                .andExpect(jsonPath("$[2].salary").doesNotExist());
+    }
+
+    @Test
+    void should_return_all_male_employees_when_call_get_employees_given_gender_equals_male() throws Exception
+    {
+        //given
+        final Employee employee = new Employee(1,"JYP Oppar", 24, "male",9999, 1);
+        final Employee secondemployee = new Employee(2,"Ralston", 24, "male",9999, 1);
+        final Employee thirdemployee = new Employee(3,"Sana", 24, "female",9999, 1);
+        employeesRepo.save(employee);
+        employeesRepo.save(secondemployee);
+        employeesRepo.save(thirdemployee);
+
+        //when
+        //then
+        String gender = "male";
+        mockMvc.perform(MockMvcRequestBuilders.get("/employees?gender={gender}",gender))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].gender").value("male"))
+                .andExpect(jsonPath("$[1].gender").value("male"))
                 .andExpect(jsonPath("$[2].salary").doesNotExist());
     }
     
