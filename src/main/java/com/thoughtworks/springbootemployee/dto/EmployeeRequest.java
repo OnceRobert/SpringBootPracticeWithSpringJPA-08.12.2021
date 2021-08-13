@@ -1,16 +1,7 @@
 package com.thoughtworks.springbootemployee.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
 public class EmployeeRequest {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
     private String name;
     private Integer age;
     private String gender;
@@ -25,9 +16,7 @@ public class EmployeeRequest {
         this.companyId = companyId;
     }
 
-
-    public void setId(Integer id) {
-        this.id = id;
+    public EmployeeRequest() {
     }
 
     public void setName(String name) {
@@ -50,9 +39,6 @@ public class EmployeeRequest {
         this.companyId = companyId;
     }
 
-    public Integer getId() {
-        return id;
-    }
 
     public String getName() {
         return name;
