@@ -1,6 +1,7 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.Repository.EmployeesRepo;
+import com.thoughtworks.springbootemployee.exception.EmployeeNotFound;
 import com.thoughtworks.springbootemployee.model.Employee;
 import org.springframework.stereotype.Service;
 
@@ -31,11 +32,14 @@ public class EmployeeService{
     }
 
 
-    public Employee findByID(Integer employeeId) {
-       return employeesRepo.findById(employeeId).orElseThrow(null);
+    public Employee findByID(Integer employeeId)
+    {
+       return employeesRepo.findById(employeeId).orElseThrow(() -> new EmployeeNotFound("Employee Not Found"));
     }
 
-    public List<Employee> getByPage(int index, int page) {
+
+
+    public List<Employee> getByPage(int index, int page) {      //Use the one from Company
         return  employeesRepo.findAll()
                 .stream()
                 .skip((long) (index - 1) *page)
